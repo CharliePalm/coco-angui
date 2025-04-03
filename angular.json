@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Monica Anguiano": {
+    "MonicaAnguiano": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -22,7 +22,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/Monica Anguiano"
+              "base": "dist/MonicaAnguiano"
             },
             "index": "src/index.html",
             "polyfills": [
@@ -93,13 +93,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Monica Anguiano:build:production"
+              "buildTarget": "MonicaAnguiano:build:production"
             },
             "development": {
-              "buildTarget": "Monica Anguiano:build:development"
+              "buildTarget": "MonicaAnguiano:build:development"
             },
             "local": {
-              "buildTarget": "Monica Anguiano:build:local"
+              "buildTarget": "MonicaAnguiano:build:local"
             }
           },
           "defaultConfiguration": "development"
@@ -107,7 +107,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "Monica Anguiano:build"
+            "buildTarget": "MonicaAnguiano:build"
           }
         },
         "test": {

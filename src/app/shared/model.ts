@@ -16,6 +16,15 @@ export enum IconType {
   LeftArrowShort = 'LeftArrowShort',
 }
 
+export enum WorkOption {
+  Photos = 'Photos',
+  Videos = 'Videos',
+  Animations = 'Animations',
+  Covers = 'Covers',
+  Flyers = 'Flyers',
+  Exhibitions = 'Exhibitions',
+}
+
 export enum SidebarOption {
     // fill in here to use sidebar
 }

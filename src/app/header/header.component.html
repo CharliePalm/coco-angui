@@ -1,0 +1,18 @@
+<div class="fixed grid grid-cols-3 w-full h-16 text-2xl md:text-4xl lg:text-5xl bg-monizzie-red text-monizzie-white text-center z-20">
+    <div class="flex justify-center items-center group">
+      <div>
+        Work
+      </div>
+      <div class="flex flex-col justify-center items-center absolute text-3xl text-monizzie-red top-16 -translate-y-80 group-hover:translate-y-0 hover:translate-y-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity druation-300">
+        <div *ngFor="let option of options" class="cursor-pointer scale-110 hover:scale-125 text-2xl" (click)="router.navigate([option])">
+            {{option}}
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center items-center hover:cursor-pointer hover:scale-110" (click)="router.navigate([''])">
+        Home
+    </div>
+  <div class="flex justify-center items-center hover:cursor-pointer hover:scale-110" (click)="router.navigate(['about'])">
+        About
+    </div>
+</div>

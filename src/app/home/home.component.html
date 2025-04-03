@@ -1,28 +1,15 @@
-<div class="fixed w-full min-h-[100svh] overflow-hidden -z-50 inset-0 object-cover">
+<div [ngClass]="{'opacity-0': !bringTheBeatIn, 'opacity-100': bringTheBeatIn}" class="transition-all duration-300">
+  <div class="fixed w-full min-h-[100svh] overflow-hidden -z-50 inset-0 object-cover">
     <video #backgroundVideo playsinline autoplay muted loop preload="metadata"
         class="-left-48 sm:left-0 absolute h-full min-h-[1024px] w-fit max-w-none top-4 overflow-hidden transition-opacity duration-300 -ml-96 md:-ml-36 lg:-ml-1 xl+:min-w-full xl+:min-h-full object-cover"
     >
         <source src="../assets/running.mp4"  type="video/mp4">
     </video>
-</div>
-<div class="fixed grid grid-cols-3 w-full h-16 text-5xl bg-monizzie-red text-monizzie-white text-center z-20">
-    <div class="flex justify-center items-center peer">
-        Work
-    </div>
-    <div class="flex justify-center items-center">
-        Home
-    </div>
-    <div class="flex justify-center items-center">
-        About
-    </div>
-    <div class="flex flex-col justify-center items-center absolute text-3xl text-monizzie-red top-16 -translate-y-80 peer-hover:translate-y-0 hover:translate-y-0 duration-300 transition-all z-0">
-        <div *ngFor="let option of options" class="cursor-pointer">
-            {{option}}
-        </div>
-    </div>
-</div>
-<div class="absolute w-screen h-screen flex justify-center items-center text-monizzie-red text-9xl overflow-hidden">
-    <div>
+  </div>
+  <div class="absolute w-screen h-screen flex justify-center items-center text-monizzie-red text-5xl sm:text-6xl md:text-8xl lg:text-9xl overflow-hidden">
+      <div>
         Monica Anguiano
-    </div>
+      </div>
+  </div>
 </div>
+<app-loader size="lg" [loading]="!loaded"></app-loader>
