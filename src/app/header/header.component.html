@@ -4,10 +4,10 @@
         Work
       </div>
       <div
-        class="flex flex-col justify-center items-center absolute text-3xl text-monizzie-red top-16 -translate-y-80 group-hover:translate-y-0 hover:translate-y-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity druation-300"
+        class="flex flex-col justify-center items-center absolute text-3xl text-monizzie-red top-16 -translate-y-80 group-hover:translate-y-0 sm:hover:translate-y-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity druation-300"
         [ngClass]="{'opacity-100 translate-y-0': dropdown}"
       >
-        <div *ngFor="let option of options" class="cursor-pointer scale-110 hover:scale-125 text-2xl" (click)="router.navigate([option]);">
+        <div *ngFor="let option of options" class="cursor-pointer scale-110 hover:scale-125 text-2xl" (click)="router.navigate([option]); dropdown = false;">
             {{option}}
         </div>
       </div>

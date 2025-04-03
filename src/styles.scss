@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  touch-action: manipulation;
+  touch-action: pan-y;
   margin: 0; height: 100%;
 }
 
