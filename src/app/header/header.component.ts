@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { WorkOption } from '../shared/model';
 
@@ -8,6 +8,16 @@ import { WorkOption } from '../shared/model';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
+  @ViewChild('workBtn') workBtn!: ViewChild;
+  dropdown = false;
+  toggle = () => this.dropdown = !this.dropdown;
   options: WorkOption[] = Object.values(WorkOption);
   constructor(public router: Router) {}
+
+  @HostListener('document:click')
+  closeDropdown() {
+    if (this.dropdown) {
+      this.dropdown = false;
+    }
+  }
 }
