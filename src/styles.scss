@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 html {
-  touch-action: pan-y;
+  touch-action: manipulation;
   margin: 0; height: 100%;
+  overflow: hidden;
+}
+
+body {
+  @apply relative overflow-hidden;
 }
 
 @layer base {
