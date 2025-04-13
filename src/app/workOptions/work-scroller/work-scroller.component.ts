@@ -16,7 +16,7 @@ export class WorkScrollerComponent implements OnInit, OnDestroy {
   touches = [0, 0];
   constructor(private router: Router) {}
   ngOnInit(): void {
-    this.timerSub = timer(500).subscribe((_) => this.doneInitting = true);
+    this.timerSub = timer(1000).subscribe((_) => this.doneInitting = true);
   }
 
   ngOnDestroy(): void {
