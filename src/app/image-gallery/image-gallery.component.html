@@ -33,7 +33,7 @@
       >
         <img
           *ngIf="mediaType === 'image'"
-          [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : `../../../assets/${location}/` + image"
+          [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : useRaw ? image : `../../../assets/${location}/` + image"
           (click)="focus(i)"
           [style.--tw-rotate-x]="!isSelected(i) ? imageStyle[i][0].rotate : '0'"
           [style.--tw-rotate-y]="!isSelected(i) ? imageStyle[i][0].rotate : '0'"
@@ -47,7 +47,7 @@
             'opacity-50': selectedIndex !== -1 && !isSelected(i),
             'max-w-[200px] lg:max-w-[300px]': size === 'lg',
             'max-w-[135px] md:max-w-[225px] lg:max-w-[300px]': size === 'md',
-            'max-h-[100px] max-w-[75px] md:max-h-[150px] md:max-w-[100px] lg:max-w-[200px]':
+            'max-h-[125px] max-w-[100px] md:max-h-[150px] md:max-w-[100px] lg:max-w-[200px]':
               size === 'sm',
             'hover:scale-110 hover:shadow-2xl hover:shadow-black/50':
               !isSelected(i),
@@ -85,7 +85,7 @@
           #videoElement
         >
           <source
-            [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : `../../../assets/${location}/` + image"
+            [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : useRaw ? image : `../../../assets/${location}/` + image"
             type="video/mp4"
           />
         </video>
@@ -117,7 +117,7 @@
             #videoElement
           >
             <source
-              [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : `../../../assets/${location}/` + image"
+              [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : useRaw ? image : `../../../assets/${location}/` + image"
               type="video/mp4"
             />
           </video>

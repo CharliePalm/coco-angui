@@ -42,6 +42,7 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
   @Input() mediaType: 'image' | 'video' | 'animation' = 'image';
   @Input() useFixed = false;
   @Input() useS3 = false;
+  @Input() useRaw = false;
 
   aspectRatios: number[] = [];
   random!: Random;
