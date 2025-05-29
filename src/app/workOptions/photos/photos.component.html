@@ -1,6 +1,10 @@
 <app-work-scroller [downOption]="downOption"></app-work-scroller>
-<div class="w-sreen h-screen z-50">
-  <div class="flex justify-center items-center w-full h-full text-6xl">
-    Photos
-  </div>
-</div>
+<app-image-gallery
+  [images]="images"
+  location="photos"
+  [rows]="5"
+  [cols]="10"
+  size="sm"
+  [seed]="1744592509698"
+  [mobileSeed]="1748471329194"
+></app-image-gallery>

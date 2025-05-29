@@ -1,0 +1,169 @@
+<div
+  class="transiiton-opacity absolute top-0 left-0 h-screen w-screen overflow-visible bg-gray-800/0 duration-300 transform-3d"
+  [ngClass]="{
+    'bg-gray-500/90': selectedIndex !== -1,
+  }"
+>
+  <div class="absolute top-0 left-0 h-screen w-screen" *ngIf="useTitle">
+    <div
+      class="mt-20 hidden h-full w-full flex-col items-center text-6xl md:flex"
+    >
+      <span class="translate-z-5">{{
+        location.charAt(0).toUpperCase() + location.slice(1)
+      }}</span>
+    </div>
+  </div>
+  <ng-container *ngIf="viewInitialized && !useFixed">
+    <ng-container *ngFor="let image of images; let i = index">
+      <div
+        [style.--tw-translate-x]="isSelected(i) ? imageStyle[i][1].x : '0'"
+        [style.--tw-translate-y]="isSelected(i) ? imageStyle[i][1].y : '0'"
+        [style.--tw-scale-x]="isSelected(i) ? scale : ''"
+        [style.--tw-scale-y]="isSelected(i) ? scale : ''"
+        [style.--tw-translate-z]="
+          isSelected(i) ? '40px' : imageStyle[i][0]['z-index'] + 'px'
+        "
+        [style.top]="imageStyle[i][0].top"
+        [style.left]="imageStyle[i][0].left"
+        [ngClass]="{
+          'hover:!translate-z-4': !isSelected(i),
+        }"
+        class="absolute inline-block translate-3d scale-3d transition-all duration-300"
+        style="width: fit-content; height: fit-content"
+      >
+        <img
+          *ngIf="mediaType === 'image'"
+          [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : `../../../assets/${location}/` + image"
+          (click)="focus(i)"
+          [style.--tw-rotate-x]="!isSelected(i) ? imageStyle[i][0].rotate : '0'"
+          [style.--tw-rotate-y]="!isSelected(i) ? imageStyle[i][0].rotate : '0'"
+          [style.image-rendering]="'pixelated'"
+          class="aspect-auto rotate-z-0 rounded-md shadow-lg duration-300 hover:cursor-pointer hover:shadow-2xl hover:shadow-black/30"
+          [ngClass]="{
+            'opacity-0': loaded !== images.length,
+            'opacity-100':
+              loaded === images.length &&
+              (selectedIndex === -1 || isSelected(i)),
+            'opacity-50': selectedIndex !== -1 && !isSelected(i),
+            'max-w-[200px] lg:max-w-[300px]': size === 'lg',
+            'max-w-[135px] md:max-w-[225px] lg:max-w-[300px]': size === 'md',
+            'max-h-[100px] max-w-[75px] md:max-h-[150px] md:max-w-[100px] lg:max-w-[200px]':
+              size === 'sm',
+            'hover:scale-110 hover:shadow-2xl hover:shadow-black/50':
+              !isSelected(i),
+          }"
+          (load)="imageLoaded(i)"
+        />
+        <video
+          *ngIf="mediaType !== 'image'"
+          allow="autoplay"
+          playsinline
+          [muted]="mediaType === 'animation'"
+          [style.--tw-rotate-x]="
+            !isSelected(i) || mediaType !== 'animation'
+              ? imageStyle[i][0].rotate
+              : '0'
+          "
+          [style.--tw-rotate-y]="
+            !isSelected(i) || mediaType !== 'animation'
+              ? imageStyle[i][0].rotate
+              : '0'
+          "
+          loop
+          allowpictureinpicture="false"
+          (loadeddata)="imageLoaded(i)"
+          preload="metadata"
+          [ngClass]="{
+            'hover:scale-110 hover:shadow-2xl hover:shadow-black/50':
+              !isSelected(i),
+            'opacity-50': selectedIndex !== -1 && !isSelected(i),
+          }"
+          (mouseenter)="onVideoHover($any($event), true, i)"
+          (mouseleave)="onVideoHover($any($event), false, i)"
+          (click)="focus(i)"
+          class="aspect-auto max-w-[175px] rotate-z-0 rounded-md shadow-lg duration-300 hover:cursor-pointer hover:shadow-2xl hover:shadow-black/30 md:max-w-[225px] lg:max-w-[300px]"
+          #videoElement
+        >
+          <source
+            [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : `../../../assets/${location}/` + image"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="useFixed">
+    <div
+      class="mt-6 grid h-11/12 w-full translate-3d scale-3d rotate-z-0 grid-cols-1 items-center justify-center transition-all duration-300 md:mt-0 md:grid-cols-2"
+      [style]="'padding-top:' + offsetTop + 'px'"
+    >
+      <div
+        *ngFor="let image of images; let i = index"
+        class="relative flex items-center justify-center"
+      >
+        <div class="relative max-w-[80%] hover:cursor-pointer">
+          <video
+            *ngIf="mediaType !== 'image'"
+            allowpictureinpicture="false"
+            (loadeddata)="imageLoaded(i)"
+            preload="metadata"
+            [ngClass]="{
+              'opacity-50': selectedIndex !== -1 && !isSelected(i),
+            }"
+            (mouseenter)="onVideoHover($any($event), true, i)"
+            (mouseleave)="onVideoHover($any($event), false, i)"
+            class="-z-50 mr-auto ml-auto aspect-auto max-h-[19vh] rounded-md duration-300 md:max-h-none"
+            #videoElement
+          >
+            <source
+              [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : `../../../assets/${location}/` + image"
+              type="video/mp4"
+            />
+          </video>
+          <div
+            class="group peer absolute top-0 left-0 z-50 flex h-full w-full items-center justify-center"
+            (click)="togglePlay(i)"
+          >
+            <app-icon
+              *ngIf="afterViewInitialized | async"
+              [type]="
+                videoElements.toArray()[i].nativeElement.paused
+                  ? $any('Play')
+                  : $any('Pause')
+              "
+              class="text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:opacity-100"
+              [ngClass]="{
+                'opacity-100': videoElements.toArray()[i].nativeElement.paused,
+              }"
+            ></app-icon>
+          </div>
+          <app-icon
+            *ngIf="afterViewInitialized | async"
+            (click)="fullScreen(i)"
+            [type]="$any('Expand')"
+            class="absolute right-2 bottom-2 z-50 text-white opacity-0 transition-opacity duration-300 peer-hover:opacity-100 hover:opacity-100"
+            [ngClass]="{
+              'opacity-100': videoElements.toArray()[i].nativeElement.paused,
+            }"
+          ></app-icon>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<app-loader
+  size="lg"
+  [loading]="loaded !== images.length && ((scrollCompleted$ | async) ?? false)"
+></app-loader>
+
+<div
+  id="safeAreaProbe"
+  style="
+    position: absolute;
+    inset: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    pointer-events: none;
+    visibility: hidden;
+  "
+></div>

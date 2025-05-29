@@ -19,19 +19,20 @@ export class HomeComponent {
     videoEl.setAttribute('playsinline', 'true');
     videoEl.setAttribute('muted', 'true');
     videoEl.load();
-    fromEvent(videoEl, 'loadeddata').pipe(
-      filter(() => this.video.nativeElement.readyState >= 2),
-      take(1),
-      switchMap((_) => timer(500)),
-      map((_) => {
-        this.loaded = true;
-      }),
-      switchMap((_) => timer(500)),
-    ).subscribe(() => {
-      this.bringTheBeatIn = true;
-    });
+    fromEvent(videoEl, 'loadeddata')
+      .pipe(
+        filter(() => this.video.nativeElement.readyState >= 2),
+        take(1),
+        switchMap((_) => timer(500)),
+        map((_) => {
+          this.loaded = true;
+        }),
+        switchMap((_) => timer(500)),
+      )
+      .subscribe(() => {
+        this.bringTheBeatIn = true;
+      });
     // this.router.events.subscribe((_) => this.checkBgType());
     // this.store.load();
   }
-
 }

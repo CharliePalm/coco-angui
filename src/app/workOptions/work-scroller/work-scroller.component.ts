@@ -1,4 +1,10 @@
-import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { WorkOption } from 'src/app/shared/model';
@@ -6,7 +12,7 @@ import { WorkOption } from 'src/app/shared/model';
 @Component({
   selector: 'app-work-scroller',
   standalone: false,
-  templateUrl: './work-scroller.component.html'
+  templateUrl: './work-scroller.component.html',
 })
 export class WorkScrollerComponent implements OnInit, OnDestroy {
   @Input() upOption?: WorkOption;
@@ -16,7 +22,7 @@ export class WorkScrollerComponent implements OnInit, OnDestroy {
   touches = [0, 0];
   constructor(private router: Router) {}
   ngOnInit(): void {
-    this.timerSub = timer(1000).subscribe((_) => this.doneInitting = true);
+    this.timerSub = timer(1500).subscribe((_) => (this.doneInitting = true));
   }
 
   ngOnDestroy(): void {
@@ -26,15 +32,17 @@ export class WorkScrollerComponent implements OnInit, OnDestroy {
   @HostListener('window:wheel', ['$event'])
   @HostListener('window:touchmove', ['$event'])
   reroute(event: WheelEvent | TouchEvent) {
-    if (this.doneInitting && event instanceof WheelEvent) {
-      if (this.downOption && event.deltaY > 0) {
-        this.router.navigate([this.downOption]);
-      } else if (this.upOption && event.deltaY < 0) {
-        this.router.navigate([this.upOption]);
+    if (this.doneInitting) {
+      if (event instanceof WheelEvent) {
+        if (this.downOption && event.deltaY > 0) {
+          this.router.navigate([this.downOption]);
+        } else if (this.upOption && event.deltaY < 0) {
+          this.router.navigate([this.upOption]);
+        }
+      } else if (event instanceof TouchEvent && event.touches.item(0)) {
+        this.touches.pop();
+        this.touches.unshift(event.touches.item(0)!.clientY);
       }
-    } else if (event instanceof TouchEvent && event.touches.item(0)) {
-      this.touches.pop();
-      this.touches.unshift(event.touches.item(0)!.clientY);
     }
   }
 

@@ -1,21 +1,33 @@
-<div class="fixed grid grid-cols-3 w-full h-16 text-2xl md:text-4xl lg:text-5xl bg-monizzie-red text-monizzie-white text-center z-20">
-    <div class="flex justify-center items-center group" (click)="toggle()">
-      <div>
-        Work
-      </div>
+<div
+  class="bg-monizzie-red text-monizzie-white fixed z-20 grid h-16 w-full grid-cols-3 text-center text-2xl md:text-4xl lg:text-5xl"
+>
+  <div class="group flex items-center justify-center">
+    <div (click)="toggle()">Work</div>
+    <div
+      class="text-monizzie-red druation-300 absolute top-16 z-0 flex -translate-y-80 flex-col items-center justify-center text-3xl opacity-0 transition-opacity group-hover:translate-y-0 group-hover:opacity-100 sm:hover:translate-y-0"
+      [ngClass]="{
+        'translate-y-0 opacity-100': dropdown,
+      }"
+    >
       <div
-        class="flex flex-col justify-center items-center absolute text-3xl text-monizzie-red top-16 -translate-y-80 group-hover:translate-y-0 sm:hover:translate-y-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity druation-300"
-        [ngClass]="{'opacity-100 translate-y-0': dropdown}"
+        *ngFor="let option of options"
+        class="scale-110 cursor-pointer text-2xl hover:scale-125"
+        (click)="dropdown = false; router.navigate([option])"
       >
-        <div *ngFor="let option of options" class="cursor-pointer scale-110 hover:scale-125 text-2xl" (click)="router.navigate([option]); dropdown = false;">
-            {{option}}
-        </div>
+        {{ option }}
       </div>
     </div>
-    <div class="flex justify-center items-center hover:cursor-pointer hover:scale-110" (click)="router.navigate([''])">
-        Home
-    </div>
-  <div class="flex justify-center items-center hover:cursor-pointer hover:scale-110" (click)="router.navigate(['about'])">
-        About
-    </div>
+  </div>
+  <div
+    class="flex items-center justify-center hover:cursor-pointer hover:underline"
+    routerLink=""
+  >
+    Home
+  </div>
+  <div
+    class="flex items-center justify-center hover:cursor-pointer hover:underline"
+    routerLink="about"
+  >
+    About
+  </div>
 </div>

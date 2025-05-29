@@ -1,19 +1,17 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable, Subject, tap } from "rxjs";
-import { APIService } from "./api.service";
-import { DataType, EventSchema, CalendarEvent, Image } from '../shared/model';
+import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject, tap } from 'rxjs';
+import { APIService } from './api.service';
+import { DataType, CalendarEvent, Image, DynamoItem, OtherItem } from '../model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Store {
-    private events: BehaviorSubject<CalendarEvent[] | undefined> = new BehaviorSubject(undefined as any);
+    private events: ReplaySubject<CalendarEvent[] | undefined> = new ReplaySubject();
     private events$?: Observable<CalendarEvent[] | undefined>;
-    private eventSchema: BehaviorSubject<EventSchema | undefined> = new BehaviorSubject(undefined as any);
-    private eventSchema$?: Observable<EventSchema | undefined>;
-    private otherData: BehaviorSubject<any> = new BehaviorSubject(undefined);
-    private otherData$?: Observable<any>;
-    private images: BehaviorSubject<Image[] | undefined> = new BehaviorSubject(undefined as any);
+    private otherData: ReplaySubject<DynamoItem[]> = new ReplaySubject();
+    private otherData$?: Observable<DynamoItem[]>;
+    private images: ReplaySubject<Image[] | undefined> = new ReplaySubject();
     private images$?: Observable<Image[] | undefined>;
 
     constructor(
@@ -27,15 +25,12 @@ export class Store {
     refresh(): void {
         this.APIService.loadClientData().pipe(
             tap((v) => {
-                const [events, schema, images, other] = [[], [], [], []] as any[][];
-                console.log(v);
+                const [events, images, other] = [[] as CalendarEvent[], [] as Image[], [] as OtherItem[]];
                 v.forEach((data) => {
                     if (data.type === DataType.CalendarEvent) events.push(data);
-                    else if (data.type === DataType.Schema) schema.push(data.schema);
                     else if (data.type === DataType.Image) images.push(data);
                     else other.push(data);
                 });
-                console.log(images);
                 events.sort((a, b) => {
                     // Split and convert the date strings to numbers
                     const [monthA, dayA, yearA] = a.date.split('/').map(Number);
@@ -47,9 +42,8 @@ export class Store {
                     
                     // Subtract the time values to sort in ascending order (earlier dates first)
                     return dateA.getTime() - dateB.getTime();
-                })
+                });
                 this.events.next(events as CalendarEvent[]);
-                this.eventSchema.next(schema?.[0]);
                 this.images.next(images);
                 this.otherData.next(other);
             }),
@@ -57,25 +51,17 @@ export class Store {
     }
 
     load(): void {
-        this.eventSchema$ = this.eventSchema.asObservable();
         this.events$ = this.events.asObservable();
         this.images$ = this.images.asObservable();
         this.otherData$ = this.otherData.asObservable();
         this.refresh();
     }
 
-    getClientData(): Observable<CalendarEvent[]> {
+    getCalendarEvents(): Observable<CalendarEvent[]> {
         if (!this.events$) {
             this.load();
         }
         return this.events$! as any;
-    }
-
-    getClientSchema(): Observable<EventSchema | undefined> {
-        if (!this.eventSchema$) {
-            this.load();
-        }
-        return this.eventSchema$! as any;
     }
 
     getImages(): Observable<Image[]> {
@@ -85,10 +71,10 @@ export class Store {
         return this.images$! as any;
     }
 
-    getOtherData(): Observable<any> {
+    getOtherData(): Observable<OtherItem[]> {
         if (!this.otherData$) {
             this.load();
         }
-        return this.otherData$! as any;
+        return this.otherData$! as Observable<OtherItem[]>;
     }
 }

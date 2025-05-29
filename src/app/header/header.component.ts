@@ -5,19 +5,15 @@ import { WorkOption } from '../shared/model';
 @Component({
   selector: 'app-header',
   standalone: false,
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
 })
 export class HeaderComponent {
   @ViewChild('workBtn') workBtn!: ViewChild;
   dropdown = false;
-  toggle = () => this.dropdown = !this.dropdown;
+  toggle = () => {
+    console.log('dropdown');
+    this.dropdown = !this.dropdown;
+  };
   options: WorkOption[] = Object.values(WorkOption);
   constructor(public router: Router) {}
-
-  @HostListener('document:click')
-  closeDropdown() {
-    if (this.dropdown) {
-      this.dropdown = false;
-    }
-  }
 }

@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { PhotosComponent } from './workOptions/photos/photos.component';
 import { VideosComponent } from './workOptions/videos/videos.component';
 import { AboutComponent } from './about/about.component';
 import { CoversComponent } from './workOptions/covers/covers.component';
 import { FlyersComponent } from './workOptions/flyers/flyers.component';
 import { HeaderComponent } from './header/header.component';
-import { ExhibitionsComponent } from './workOptions/exhibitions/exhibitions.component';
 import { AnimationsComponent } from './workOptions/animations/animations.component';
 import { WorkScrollerComponent } from './workOptions/work-scroller/work-scroller.component';
 import { LoaderComponent } from './loader/loader.component';
+import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
+import { IconComponent } from './icon/icon.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,17 +28,20 @@ import { LoaderComponent } from './loader/loader.component';
     CoversComponent,
     FlyersComponent,
     HeaderComponent,
-    ExhibitionsComponent,
     AnimationsComponent,
     WorkScrollerComponent,
     LoaderComponent,
+    ImageGalleryComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     BrowserAnimationsModule,
+    IconComponent,
+    NgOptimizedImage,
   ],
-  bootstrap: [AppComponent]
+  providers: [provideHttpClient()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

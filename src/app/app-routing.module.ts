@@ -7,7 +7,6 @@ import { VideosComponent } from './workOptions/videos/videos.component';
 import { CoversComponent } from './workOptions/covers/covers.component';
 import { FlyersComponent } from './workOptions/flyers/flyers.component';
 import { AboutComponent } from './about/about.component';
-import { ExhibitionsComponent } from './workOptions/exhibitions/exhibitions.component';
 import { AnimationsComponent } from './workOptions/animations/animations.component';
 
 const routes: Routes = [
@@ -17,13 +16,12 @@ const routes: Routes = [
   { path: WorkOption.Animations, component: AnimationsComponent },
   { path: WorkOption.Covers, component: CoversComponent },
   { path: WorkOption.Flyers, component: FlyersComponent },
-  { path: WorkOption.Exhibitions, component: ExhibitionsComponent },
   { path: 'about', component: AboutComponent },
   { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

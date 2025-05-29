@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+html {
+  touch-action: manipulation;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  @apply relative overflow-x-hidden;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+@font-face {
+  font-family: MP;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("assets/Modern Prestige.otf") format("opentype");
+}
+
+@theme {
+  --color-monizzie-red: #f40000;
+  --color-monizzie-white: #f0f0f0;
+  --font-mp: "MP";
+}
