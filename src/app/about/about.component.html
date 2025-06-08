@@ -1,4 +1,8 @@
-<div class="z-50 h-screen w-screen" *ngIf="bio$ | async as bioChunks">
+<div
+  class="z-50 h-screen w-screen"
+  *ngIf="bio$ | async as bioChunks"
+  [ngClass]="{ 'opacity-0': loading }"
+>
   <div
     class="relative mt-20 flex h-full w-full flex-col text-6xl md:absolute md:mt-0 md:grid md:grid-cols-2 md:grid-rows-2 md:items-center md:justify-center"
   >
@@ -22,8 +26,8 @@
     <div>
       <img
         ngSrc="../../../assets/selfie-).JPG"
-        width="250"
-        height="250"
+        width="400"
+        height="400"
         class="mr-auto ml-auto hidden md:block"
       />
     </div>

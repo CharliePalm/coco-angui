@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class LoaderComponent {
   @Input() size?: 'sm' | 'md' | 'lg';
-  @Input() loading?: boolean = true;
+  @Input() loading: boolean | null | undefined = true;
   @Input() useLight = false;
 }

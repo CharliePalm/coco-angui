@@ -2,17 +2,30 @@
   class="bg-monizzie-red text-monizzie-white fixed z-20 grid h-16 w-full grid-cols-3 text-center text-2xl md:text-4xl lg:text-5xl"
 >
   <div class="group flex items-center justify-center">
-    <div (click)="toggle()">Work</div>
+    <div class="flex items-baseline justify-center">
+      <span (click)="toggle()" class="block md:hidden">Work</span>
+      <span class="hidden cursor-default group-hover:underline md:block"
+        >Work</span
+      >
+      <span
+        class="text-monizzie-white pl-4 text-sm opacity-80 md:text-lg"
+        *ngIf="selectedOption"
+      >
+        > {{ selectedOption }}</span
+      >
+    </div>
     <div
-      class="text-monizzie-red druation-300 absolute top-16 z-0 flex -translate-y-80 flex-col items-center justify-center text-3xl opacity-0 transition-opacity group-hover:translate-y-0 group-hover:opacity-100 sm:hover:translate-y-0"
+      class="text-monizzie-red text-shadow-monizzie-white druation-300 absolute top-16 z-0 flex -translate-y-80 flex-col items-center justify-center text-3xl opacity-0 transition-opacity text-shadow-md group-hover:opacity-100 sm:hover:translate-y-0"
       [ngClass]="{
         'translate-y-0 opacity-100': dropdown,
+        '-translate-y-80!': forceClose,
+        'group-hover:translate-y-0': !forceClose,
       }"
     >
       <div
-        *ngFor="let option of options"
+        *ngFor="let option of sortedOptions"
         class="scale-110 cursor-pointer text-2xl hover:scale-125"
-        (click)="dropdown = false; router.navigate([option])"
+        (click)="optionClicked(option)"
       >
         {{ option }}
       </div>
