@@ -10,6 +10,10 @@ export class AnimationsComponent {
   upOption = WorkOption.Videos;
   downOption = WorkOption.Covers;
 
+  public get offsetTop(): number {
+    return window.innerWidth <= 768 ? 30 : 150;
+  }
+
   animations = [
     'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488287/adhd_video_copy_ehpkfr.mov',
     'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488292/folklore_azul_de_estrellas_m43w7i.mp4',

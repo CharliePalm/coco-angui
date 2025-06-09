@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   HostListener,
   OnInit,
   ViewChild,
@@ -24,6 +25,8 @@ const positions: Record<WorkOption, number> = {
 })
 export class HeaderComponent {
   @ViewChild('workBtn') workBtn!: ViewChild;
+  @ViewChild('workButton', { static: true }) menuButton!: ElementRef;
+
   dropdown = false;
   forceClose = false;
   toggle = () => {
@@ -49,6 +52,17 @@ export class HeaderComponent {
     timer(250).subscribe(() => {
       this.forceClose = false;
     });
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleDocumentClick(event: MouseEvent) {
+    if (
+      this.dropdown &&
+      window.innerWidth <= 768 &&
+      !this.menuButton.nativeElement.contains(event.target)
+    ) {
+      this.dropdown = false;
+    }
   }
 
   setSelectedOption(newSelectedOption: WorkOption) {

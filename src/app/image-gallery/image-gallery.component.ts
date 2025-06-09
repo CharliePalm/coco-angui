@@ -12,6 +12,7 @@ import { Random } from '../shared/utils/random.util';
 import {
   BehaviorSubject,
   first,
+  from,
   map,
   Observable,
   switchMap,
@@ -82,8 +83,11 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
     this.random = new Random(
       this.previousIsMobile ? this.mobileSeed : this.seed,
     );
-    console.log('using seed: ' + this.random.getSeed());
-    this.imageStyle = this.images.map((_, index) => this.getImageStyle(index));
+    if (!this.useFixed) {
+      this.imageStyle = this.images.map((_, index) =>
+        this.getImageStyle(index),
+      );
+    }
     this.viewInitialized = true;
     this.scrollCompleted$ = timer(300).pipe(map(() => true));
   }
@@ -152,11 +156,18 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
   }
 
   focus(i: number) {
-    console.log('focusing', i);
-    console.log('is selected:', this.isSelected(i));
     // for generating seeds:
     // this.ngOnInit();
     // return;
+    if (this.mediaType !== 'image' && !document.fullscreenElement) {
+      const videoEl = this.videoElements.toArray()[i].nativeElement;
+      videoEl.muted = false;
+      from(videoEl.requestFullscreen()).subscribe(() => {
+        this.selectedIndex = i;
+      });
+      return;
+    }
+
     if (this.isSelected(i)) {
       this.selectedIndex = -1;
       return;
@@ -167,7 +178,6 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
         this.mediaType !== 'image' ? 'video' : 'img',
       )[i];
       const rect = img.getBoundingClientRect();
-      // console.log(rect);
       const x = `calc(50dvw - ${rect.left + rect.width / 2}px)`;
       const y = `calc(50dvh - ${rect.top + rect.height / 2}px)`;
 
@@ -175,22 +185,6 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
       this.selectedIndex = i;
     } else {
       this.selectedIndex = i;
-    }
-    if (this.mediaType !== 'image') {
-      const videoEl = this.videoElements.toArray()[i].nativeElement;
-      videoEl.requestFullscreen();
-    }
-  }
-
-  fullScreenChange(i: number) {
-    console.log('fullscreen change: ', i);
-    const el = this.videoElements.toArray()[i].nativeElement;
-    if (!el.muted) {
-      el.pause();
-      el.muted = true;
-      this.focus(i);
-    } else {
-      el.muted = false;
     }
   }
 
@@ -236,13 +230,16 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  fullScreen(i: number): void {
+  fullScreenChange(i: number): void {
     const videos = this.videoElements.toArray();
-    if (videos[i]) {
-      const video = videos[i].nativeElement as HTMLVideoElement;
-      video.muted = false;
-      this.focus(i);
-      video.requestFullscreen();
+    const isExitingFullScreen = !document.fullscreenElement;
+    if (isExitingFullScreen) {
+      this.selectedIndex = -1;
+      videos[i].nativeElement.pause();
+      videos[i].nativeElement.muted = true;
+    } else {
+      videos[i].nativeElement.muted = false;
+      videos[i].nativeElement.play();
     }
   }
 }
