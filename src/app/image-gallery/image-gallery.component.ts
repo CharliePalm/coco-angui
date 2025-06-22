@@ -194,14 +194,8 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
     this.loaded++;
     if (this.loaded === this.images.length) {
       timer(500)
-        .pipe(
-          first(),
-          switchMap(() => {
-            this.showLoader.next(false);
-            return timer(300);
-          }),
-        )
-        .subscribe(() => this.loading.next(false));
+        .pipe(first())
+        .subscribe(() => this.showLoader.next(false));
     }
     // img optimization? Idk probably won't make sense to use this
     // const img = document.getElementsByTagName(
@@ -241,5 +235,9 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
       videos[i].nativeElement.muted = false;
       videos[i].nativeElement.play();
     }
+  }
+
+  onTransitionOutCompleted(): void {
+    this.loading.next(false);
   }
 }

@@ -29,9 +29,7 @@ export class HomeComponent {
         }),
         switchMap((_) => timer(500)),
       )
-      .subscribe(() => {
-        this.bringTheBeatIn = true;
-      });
+      .subscribe();
     // this.router.events.subscribe((_) => this.checkBgType());
     // this.store.load();
   }

@@ -15,14 +15,14 @@ export class AnimationsComponent {
   }
 
   animations = [
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488287/adhd_video_copy_ehpkfr.mov',
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488292/folklore_azul_de_estrellas_m43w7i.mp4',
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488284/gotalight_h44zw2.mp4',
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488353/interlinked_copy_nbwnpd.mp4',
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488340/liar_2.0_copy_upqvfg.mp4',
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488328/milan_wfvcj1.mp4',
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488274/abc_anxovn.mp4',
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488356/soundbath_FINAL_copy_cq1m6y.mov',
-    'https://res.cloudinary.com/dk3ymrwc5/video/upload/v1748488357/messup_dvybah.mov',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/adhd_video_copy_ehpkfr.mov',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/folklore_azul_de_estrellas_m43w7i.mp4',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/gotalight_h44zw2.mp4',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/interlinked_copy_nbwnpd.mp4',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/liar_2.0_copy_upqvfg.mp4',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/milan_wfvcj1.mp4',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/abc_anxovn.mp4',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/soundbath_FINAL_copy_cq1m6y.mov',
+    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/messup_dvybah.mov',
   ];
 }

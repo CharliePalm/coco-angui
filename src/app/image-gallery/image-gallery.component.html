@@ -125,7 +125,6 @@
 </div>
 <app-loader
   size="lg"
-  [loading]="
-    ((showLoader | async) ?? false) && ((scrollCompleted$ | async) ?? false)
-  "
+  [loading]="(showLoader | async) ?? true"
+  (transitionOutCompleted)="onTransitionOutCompleted()"
 ></app-loader>

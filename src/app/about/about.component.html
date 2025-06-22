@@ -1,7 +1,7 @@
 <div
-  class="z-50 h-screen w-screen"
+  class="z-50 h-screen w-screen transition-opacity duration-300"
   *ngIf="bio$ | async as bioChunks"
-  [ngClass]="{ 'opacity-0': loading }"
+  [ngClass]="{ 'opacity-0': !loaderFinished, 'opacity-100': loaderFinished }"
 >
   <div
     class="relative mt-20 flex h-full w-full flex-col text-6xl md:absolute md:mt-0 md:grid md:grid-cols-2 md:grid-rows-2 md:items-center md:justify-center"
@@ -40,4 +40,7 @@
     </div>
   </div>
 </div>
-<app-loader [loading]="loading"></app-loader>
+<app-loader
+  [loading]="loading"
+  (transitionOutCompleted)="loaderFinished = true"
+></app-loader>

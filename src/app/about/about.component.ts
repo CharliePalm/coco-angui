@@ -11,6 +11,7 @@ import { OtherDataType } from '../shared/model';
 })
 export class AboutComponent {
   loading = true;
+  loaderFinished = false;
   constructor(private store: Store) {
     this.bio$ = this.store.getOtherData().pipe(
       map((data) => {

@@ -23,4 +23,8 @@
     <div>Monica Anguiano</div>
   </div>
 </div>
-<app-loader size="lg" [loading]="!loaded"></app-loader>
+<app-loader
+  size="lg"
+  [loading]="!loaded"
+  (transitionOutCompleted)="bringTheBeatIn = true"
+></app-loader>

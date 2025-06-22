@@ -1,6 +1,11 @@
 <div
-  class="fixed inset-0 flex items-center justify-center transition-opacity duration-500"
-  [ngClass]="{ '-z-50 opacity-0': !loading, 'opacity-100': loading }"
+  class="fixed inset-0 flex items-center justify-center duration-500 perspective-distant transform-3d"
+  *ngIf="!done"
 >
-  <div class="animate-bounce text-8xl">🍒</div>
+  <img
+    class="max-w-64"
+    [ngClass]="{ pulse: loading, 'throw-it-back': !loading }"
+    src="../../assets/logo transparent.png"
+    (animationend)="onAnimationDone()"
+  />
 </div>
