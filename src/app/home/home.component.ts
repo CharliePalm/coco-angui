@@ -16,8 +16,8 @@ export class HomeComponent {
   ngAfterViewInit(): void {
     const videoEl = this.video.nativeElement;
     videoEl.muted = true;
-    videoEl.setAttribute('playsinline', 'true');
-    videoEl.setAttribute('muted', 'true');
+    videoEl.playsInline = true;
+    videoEl.defaultMuted = true;
     videoEl.load();
     fromEvent(videoEl, 'loadeddata')
       .pipe(
@@ -25,6 +25,9 @@ export class HomeComponent {
         take(1),
         switchMap((_) => timer(500)),
         map((_) => {
+          if (this.video.nativeElement.paused) {
+            this.video.nativeElement.play();
+          }
           this.loaded = true;
         }),
         switchMap((_) => timer(500)),
