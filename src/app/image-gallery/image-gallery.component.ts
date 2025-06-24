@@ -193,7 +193,7 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
   imageLoaded(index: number) {
     this.loaded++;
     if (this.loaded === this.images.length) {
-      timer(500)
+      timer(200)
         .pipe(first())
         .subscribe(() => this.showLoader.next(false));
     }
