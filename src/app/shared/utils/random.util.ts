@@ -3,6 +3,7 @@ export class Random {
 
   constructor(seed?: number) {
     this.seed = seed ?? Date.now(); // Use current timestamp if no seed provided
+    // console.log('using seed ' + this.seed);
   }
 
   // Generates a pseudo-random number between 0 and 1

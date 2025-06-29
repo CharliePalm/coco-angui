@@ -12,7 +12,7 @@ import { inject } from '@vercel/analytics';
   animations: [routeAnimations],
 })
 export class AppComponent {
-  title = '';
+  title = 'Moni Anguiano';
   constructor(public router: Router) {
     if (environment.production) {
       inject();
