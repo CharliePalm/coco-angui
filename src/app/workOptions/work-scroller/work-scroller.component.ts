@@ -17,6 +17,7 @@ import { WorkOption } from 'src/app/shared/model';
 export class WorkScrollerComponent implements OnInit, OnDestroy {
   @Input() upOption?: WorkOption;
   @Input() downOption?: WorkOption;
+  @Input() parentDoneLoading!: boolean;
   doneInitting = false;
   timerSub!: Subscription;
   touches = [0, 0];
@@ -32,7 +33,7 @@ export class WorkScrollerComponent implements OnInit, OnDestroy {
   @HostListener('window:wheel', ['$event'])
   @HostListener('window:touchmove', ['$event'])
   reroute(event: WheelEvent | TouchEvent) {
-    if (this.doneInitting) {
+    if (this.doneInitting && this.parentDoneLoading) {
       if (event instanceof WheelEvent) {
         if (this.downOption && event.deltaY > 0) {
           this.router.navigate([this.downOption]);
@@ -48,12 +49,15 @@ export class WorkScrollerComponent implements OnInit, OnDestroy {
 
   @HostListener('window:touchend')
   touchend() {
-    if (this.upOption && this.touches[0] - this.touches[1] > 0) {
-      this.router.navigate([this.upOption]);
-    } else if (this.downOption && this.touches[0] - this.touches[1] < 0) {
-      this.router.navigate([this.downOption]);
-    } else {
-      // this is a tap event
+    if (this.doneInitting && this.parentDoneLoading) {
+      if (this.upOption && this.touches[0] - this.touches[1] > 0) {
+        this.router.navigate([this.upOption]);
+      } else if (this.downOption && this.touches[0] - this.touches[1] < 0) {
+        this.router.navigate([this.downOption]);
+      } else {
+        // this is a tap event
+      }
     }
+
   }
 }

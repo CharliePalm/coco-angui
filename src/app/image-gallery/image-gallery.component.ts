@@ -18,6 +18,8 @@ import {
   switchMap,
   timer,
 } from 'rxjs';
+import { WorkOption } from '../shared/model';
+
 type imageStyleType = [
   {
     top: string;
@@ -32,11 +34,14 @@ type imageStyleType = [
   selector: 'app-image-gallery',
   standalone: false,
   templateUrl: './image-gallery.component.html',
+  styles: '.image-container > * { overflow: hidden; } '
 })
 export class ImageGalleryComponent implements OnInit, AfterViewInit {
   @ViewChildren('videoElement') videoElements!: QueryList<
     ElementRef<HTMLVideoElement>
   >;
+  @Input() upOption?: WorkOption;
+  @Input() downOption?: WorkOption;
   @Input() images!: string[];
   @Input() seed?: number;
   @Input() mobileSeed?: number;

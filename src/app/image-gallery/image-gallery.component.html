@@ -1,3 +1,8 @@
+<app-work-scroller
+  [upOption]="upOption"
+  [downOption]="downOption"
+  [parentDoneLoading]="!(loading | async)"
+></app-work-scroller>
 <div
   class="transiiton-opacity absolute top-0 left-0 h-screen w-screen overflow-visible bg-gray-800/0 duration-300 transform-3d"
   [ngClass]="{
@@ -6,7 +11,7 @@
 >
   <div class="absolute top-0 left-0 h-screen w-screen" *ngIf="useTitle">
     <div
-      class="mt-20 hidden h-full w-full flex-col items-center text-6xl md:flex"
+      class="mt-20 hidden h-[calc(100% - (var(--spacing) * 20) - 1%)] w-full flex-col items-center text-6xl md:flex"
     >
       <span class="translate-z-5">{{
         location.charAt(0).toUpperCase() + location.slice(1)
@@ -31,13 +36,14 @@
         class="absolute inline-block translate-3d scale-3d transition-all duration-300"
         style="width: fit-content; height: fit-content"
       >
+      <!--  -->
         <img
           *ngIf="mediaType === 'image'"
           [src]="useS3 ? `https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/SiteImage/${image}` : useRaw ? image : `../../../assets/${location}/` + image"
           (click)="focus(i)"
           [style.--tw-rotate-x]="!isSelected(i) ? imageStyle[i][0].rotate : '0'"
           [style.--tw-rotate-y]="!isSelected(i) ? imageStyle[i][0].rotate : '0'"
-          [style.image-rendering]="'pixelated'"
+          [style.image-rendering]="!isSelected(i) ? 'pixelated' : ''"
           class="aspect-auto rotate-z-0 rounded-md shadow-lg duration-300 hover:cursor-pointer hover:shadow-2xl hover:shadow-black/30"
           [ngClass]="{
             'opacity-0': loading | async,
