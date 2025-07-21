@@ -15,14 +15,14 @@ export class AnimationsComponent {
   }
 
   animations = [
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/adhd_video_copy_ehpkfr.mov',
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/folklore_azul_de_estrellas_m43w7i.mp4',
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/gotalight_h44zw2.mp4',
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/interlinked_copy_nbwnpd.mp4',
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/liar_2.0_copy_upqvfg.mp4',
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/milan_wfvcj1.mp4',
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/abc_anxovn.mp4',
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/soundbath_FINAL_copy_cq1m6y.mov',
-    'https://client-uploads-877b7177.s3.us-east-2.amazonaws.com/71db65b0-7081-7071-3f6f-b386c234050f/animations/messup_dvybah.mov',
+    'adhd_video_copy_ehpkfr.mov',
+    'folklore_azul_de_estrellas_m43w7i.mp4',
+    'gotalight_h44zw2.mp4',
+    'interlinked_copy_nbwnpd.mp4',
+    'liar_2.0_copy_upqvfg.mp4',
+    'milan_wfvcj1.mp4',
+    'abc_anxovn.mp4',
+    'soundbath_FINAL_copy_cq1m6y.mov',
+    'messup_dvybah.mov',
   ];
 }

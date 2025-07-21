@@ -13,22 +13,21 @@ export class CoversComponent {
   images = [
     'CAISTEDELCIELO Mila la Morena.jpg',
     'Guapa Remix Chillona.jpg',
-    'iadoreu copy.jpg',
-    'DBK copy.jpg',
+    'iadoreu copy.jpeg',
+    'DBK copy.jpeg',
     'Neckhair copy.jpg',
     'lloro despues del sexo mila la morena.png',
     'Easy copy.jpg',
-    'Viento FalconShop.jpg',
+    'Viento FalconShop.jpeg',
     'luchador adan diaz.jpg',
     'Escapando Chillona.jpg',
-    'a little love final Deryk G.jpg',
-    'luchador alt cover.jpg',
+    'a little love final Deryk G.jpeg',
+    'luchador alt cover.jpeg',
     'Freakygirl Mila la Morena.jpeg',
     'btb copy.jpg',
-    'never too young cover copy.jpg',
+    'never too young cover copy.jpeg',
     'Guapa Chillona.jpg',
     'forgive me_ copy.jpg',
     'puchita cam bolden.jpg',
   ];
-
 }

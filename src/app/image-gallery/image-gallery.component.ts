@@ -12,6 +12,7 @@ import { Random } from '../shared/utils/random.util';
 import {
   BehaviorSubject,
   first,
+  firstValueFrom,
   from,
   map,
   Observable,
@@ -65,6 +66,7 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
   loaded = 0;
   showLoader = new BehaviorSubject<boolean>(true);
   loading = new BehaviorSubject<boolean>(true);
+  imageLoading = new BehaviorSubject<number>(-1);
   viewInitialized = false;
   afterViewInitialized = new BehaviorSubject<boolean>(false);
   scrollCompleted$!: Observable<boolean>;
@@ -81,6 +83,9 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    if (!this.images[0].includes('cloudfront')) {
+      this.images = this.images.map((image) => this.useS3 ? `https://d2626dgrp6p00j.cloudfront.net/${this.mediaType === 'image' ? 'previews/' : ''}${this.location}/${image}` : this.useRaw ? image : `../../../assets/${location}/` + image)
+    }
     if (!this.mobileSeed) {
       this.mobileSeed = this.seed;
     }
@@ -160,7 +165,27 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
     ];
   }
 
-  focus(i: number) {
+  async focus(i: number) {
+    if (this.useS3 && this.images[i].includes('/previews/')) {
+      this.imageLoading.next(i);
+      const fullUrl = this.images[i].replace('/previews/', '/');
+      console.log('loading image');
+      // Preload the full image
+      await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = fullUrl;
+        img.onload = () => resolve(true);
+        img.onerror = reject;
+      });
+      console.log('done waiting for image to load');
+      // Swap the image only after it’s loaded
+      this.images[i] = fullUrl;
+      // this is really hacky and sucks but is necessary for getting image animations to work after load. Without this, no animation plays and the image just snaps to the front
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      this.imageLoading.next(-1);
+      // return;
+    }
     // for generating seeds:
     // this.ngOnInit();
     // return;
