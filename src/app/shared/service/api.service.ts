@@ -25,7 +25,7 @@ export class APIService {
     return this.http
       .get<
         UnsortedDynamoItem[]
-      >(`https://f58brf0g01.execute-api.us-east-2.amazonaws.com/Prod/client_query?client_id=${CLIENT_ID}`)
+      >(`https://3hsooi1ls5.execute-api.us-east-2.amazonaws.com/Prod/client_query?client_id=${CLIENT_ID}`)
       .pipe(
         shareReplay(),
         catchError((error) => {
