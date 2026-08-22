@@ -11,7 +11,7 @@
 >
   <div class="absolute top-0 left-0 h-screen w-screen" *ngIf="useTitle">
     <div
-      class="mt-20 hidden h-[calc(100% - (var(--spacing) * 20) - 1%)] w-full flex-col items-center text-6xl md:flex"
+      class="h-[calc(100% - (var(--spacing) * 20) - 1%)] mt-20 hidden w-full flex-col items-center text-6xl md:flex"
     >
       <span class="translate-z-5">{{
         location.charAt(0).toUpperCase() + location.slice(1)
@@ -36,7 +36,7 @@
         class="absolute inline-block translate-3d scale-3d transition-all duration-300"
         style="width: fit-content; height: fit-content"
       >
-      <!--  -->
+        <!--  -->
         <img
           *ngIf="mediaType === 'image'"
           [src]="image"
@@ -47,10 +47,13 @@
           [ngClass]="{
             'opacity-0': loading | async,
             'opacity-100':
-              !(loading | async) && (selectedIndex === -1 || isSelected(i)) && (imageLoading | async) !== i,
+              !(loading | async) &&
+              (selectedIndex === -1 || isSelected(i)) &&
+              (imageLoading | async) !== i,
             'opacity-50': selectedIndex !== -1 && !isSelected(i),
             'opacity-35': (imageLoading | async) === i,
             'max-w-[200px] lg:max-w-[300px]': size === 'lg',
+            'w-[200px] lg:w-[300px]': picsAreBig,
             'max-w-[135px] sm:max-w-[200px] md:max-w-[245px] lg:max-w-[300px]':
               size === 'md',
             'max-h-[100px] max-w-[75px] md:max-h-[150px] md:max-w-[150px] lg:max-w-[200px]':
@@ -91,7 +94,6 @@
             ></path>
           </svg>
         </div> -->
-
       </div>
     </ng-container>
   </ng-container>
@@ -131,10 +133,7 @@
           class="z-10 mr-auto ml-auto aspect-auto max-h-[80%] max-w-[80%] rounded-md transition-all duration-300"
           #videoElement
         >
-          <source
-            [src]="image + '#t=0.001'"
-            type="video/mp4"
-          />
+          <source [src]="image + '#t=0.001'" type="video/mp4" />
         </video>
       </div>
     </div>

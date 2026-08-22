@@ -35,7 +35,7 @@ type imageStyleType = [
   selector: 'app-image-gallery',
   standalone: false,
   templateUrl: './image-gallery.component.html',
-  styles: '.image-container > * { overflow: hidden; } '
+  styles: '.image-container > * { overflow: hidden; } ',
 })
 export class ImageGalleryComponent implements OnInit, AfterViewInit {
   @ViewChildren('videoElement') videoElements!: QueryList<
@@ -50,6 +50,7 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
   @Input() rows: number = 3;
   @Input() cols: number = 6;
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
+  @Input() picsAreBig: boolean = false;
   @Input() useTitle = true;
   @Input() rotate = true;
   @Input() offsetTop = 0;
@@ -84,7 +85,13 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     if (!this.images[0].includes('cloudfront')) {
-      this.images = this.images.map((image) => this.useS3 ? `https://d2626dgrp6p00j.cloudfront.net/${this.mediaType === 'image' ? 'previews/' : ''}${this.location}/${image}` : this.useRaw ? image : `../../../assets/${location}/` + image)
+      this.images = this.images.map((image) =>
+        this.useS3
+          ? `https://d2626dgrp6p00j.cloudfront.net/${this.mediaType === 'image' ? 'previews/' : ''}${this.location}/${image}`
+          : this.useRaw
+            ? image
+            : `../../../assets/${location}/` + image,
+      );
     }
     if (!this.mobileSeed) {
       this.mobileSeed = this.seed;
@@ -166,10 +173,9 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
   }
 
   async focus(i: number) {
-    if (this.useS3 && this.images[i].includes('/previews/')) {
+    if (this.useS3 && this.images[i].includes('net/previews/')) {
       this.imageLoading.next(i);
       const fullUrl = this.images[i].replace('/previews/', '/');
-      console.log('loading image');
       // Preload the full image
       await new Promise((resolve, reject) => {
         const img = new Image();
@@ -177,7 +183,6 @@ export class ImageGalleryComponent implements OnInit, AfterViewInit {
         img.onload = () => resolve(true);
         img.onerror = reject;
       });
-      console.log('done waiting for image to load');
       // Swap the image only after it’s loaded
       this.images[i] = fullUrl;
       // this is really hacky and sucks but is necessary for getting image animations to work after load. Without this, no animation plays and the image just snaps to the front
